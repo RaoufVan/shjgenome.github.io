@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharjah Emirati Genome Project Presentation</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #2c5c3f;
+            --secondary-color: #ffffff;
+            --accent-color: #000000;
+            --bg-color: #e6f0e9;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, var(--secondary-color), #f0f0f0);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 800px;
+            padding: 40px;
+            position: relative;
+        }
+
+        .title-container {
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--accent-color);
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1em;
+        }
+
+        li i {
+            margin-right: 10px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--accent-color);
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1em;
+            color: var(--accent-color);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title-container">
+            <h1 id="title">Sharjah Emirati Genome Project</h1>
+            <h2 id="subtitle">A Vision for Health and Progress</h2>
+        </div>
+        <ul id="content">
+            <li><i data-lucide="dna"></i>Tailored healthcare for 208,000 Emirati citizens</li>
+            <li><i data-lucide="microscope"></i>Positioning Sharjah as a leader in precision medicine</li>
+            <li><i data-lucide="graduation-cap"></i>Leveraging Sharjah University's academic strengths</li>
+            <li><i data-lucide="cpu"></i>Cutting-edge AI and quantum computing analysis</li>
+        </ul>
+        <div class="navigation">
+            <button onclick="changeSlide(-1)">Previous</button>
+            <button onclick="changeSlide(1)">Next</button>
+        </div>
+        <div class="page-number" id="page-number">1 / 4</div>
+    </div>
+
+    <script>
+        const slides = [
+            {
+                title: "Sharjah Emirati Genome Project",
+                subtitle: "A Vision for Health and Progress",
+                content: [
+                    { text: "Tailored healthcare for 208,000 Emirati citizens", icon: "dna" },
+                    { text: "Positioning Sharjah as a leader in precision medicine", icon: "microscope" },
+                    { text: "Leveraging Sharjah University's academic strengths", icon: "graduation-cap" },
+                    { text: "Cutting-edge AI and quantum computing analysis", icon: "cpu" }
+                ]
+            },
+            {
+                title: "Advancing Sharjah's Healthcare",
+                subtitle: "Personalized Medicine for All",
+                content: [
+                    { text: "Early detection of genetic disorders", icon: "search" },
+                    { text: "Personalized treatment plans for citizens", icon: "clipboard-list" },
+                    { text: "15-20% reduction in healthcare costs", icon: "trending-down" },
+                    { text: "Development of Sharjah-specific health apps", icon: "smartphone" }
+                ]
+            },
+            {
+                title: "Economic Growth and Innovation",
+                subtitle: "Boosting Sharjah's Economy",
+                content: [
+                    { text: "50-75 high-skilled jobs for Emiratis", icon: "users" },
+                    { text: "Sharjah as a hub for biotech industries", icon: "building" },
+                    { text: "Attraction of international investments", icon: "landmark" },
+                    { text: "New startups in personalized medicine", icon: "rocket" }
+                ]
+            },
+            {
+                title: "Long-term Impact on Sharjah",
+                subtitle: "Shaping a Brighter Future",
+                content: [
+                    { text: "Creating a healthier, productive population", icon: "heart" },
+                    { text: "Valuable genomic database for research", icon: "database" },
+                    { text: "Significant healthcare cost savings", icon: "trending-down" },
+                    { text: "Inspiring next-gen Sharjah scientists", icon: "lightbulb" }
+                ]
+            }
+        ];
+
+        let currentSlide = 0;
+
+        function updateSlide() {
+            const slide = slides[currentSlide];
+            document.getElementById('title').textContent = slide.title;
+            document.getElementById('subtitle').textContent = slide.subtitle;
+            const content = document.getElementById('content');
+            content.innerHTML = slide.content.map(item => 
+                `<li class="fade-in"><i data-lucide="${item.icon}"></i>${item.text}</li>`
+            ).join('');
+            document.getElementById('page-number').textContent = `${currentSlide + 1} / ${slides.length}`;
+            lucide.createIcons();
+        }
+
+        function changeSlide(direction) {
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            updateSlide();
+        }
+
+        updateSlide();
+    </script>
+</body>
+</html>
